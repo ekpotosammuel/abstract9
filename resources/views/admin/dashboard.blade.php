@@ -6,9 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header"><center> {{__('ADMIN') }}</center></div>
-                {{-- @foreach ($roles as $role )
-                    {{$role}}
-                @endforeach --}}
                 <div>
                     <table class="table table-bordered small" width="100%" id="office_table" cellspacing="0">
                         <thead>
@@ -26,8 +23,7 @@
                             @foreach ($roles as $role)
                                <tr>
                                     <td>{{ $role->user->name }}</td>
-                                    <td>{{ $role->role->name }}</td>
-                
+                                    <td>{{ $role->role->name }}</td>                
                                         <br>
                                     </td>
                         
