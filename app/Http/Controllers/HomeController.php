@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\UserRole;
+// use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -13,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
 
     /**
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = auth('sanctum')->user();
+        $user_role = UserRole::where('user_id', $user->id)->first();
+        $role = Role::where('id', $user_role->role_id)->first();
+        if ($role->name == 'Pending') {
+            return redirect()->route('pending');
+        }
         return view('home');
     }
     public function pending()

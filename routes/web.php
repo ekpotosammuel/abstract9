@@ -25,28 +25,26 @@ Route::get('/', function () {
 
 
 Auth::routes();
-Route::get('/pending', [HomeController::class, 'pending'])->name('pending');
-// Route::get('/user', [UserController::class, 'index'])->name('user');
-Route::get('/role', [UserRoleController::class, 'index'])->name('role');
-Route::get('/role/{id}', [UserRoleController::class, 'update'])->name('update');
-Route::get('/deactivate', [HomeController::class, 'deactivate'])->name('deactivate');
 
-Route::group(['middleware' => ['user.auth', 'admin.auth']], function(){
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-});
+// Route::get('/deactivate', [HomeController::class, 'deactivate'])->name('deactivate');
 
+// Route::group(['middleware' => ['user.auth']], function(){
+//     Route::get('/home', [HomeController::class, 'index'])->name('home');
+// });
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('roles')->group(function(){
-    Route::get('/', [RoleController::class, 'index']);
-    Route::post('/', [RoleController::class, 'store']);
-    Route::get('/{id}', [RoleController::class, 'show']);
-    Route::put('/{id}', [RoleController::class, 'update']);
-    // Route::delete('/{id}', [RoleController::class, 'destroy']);
-});
-
-Route::put('user_role/{id}', [UserRoleController::class, 'update']);
 
 Route::group(['middleware' => ['admin.auth']], function(){
+    Route::get('/role', [UserRoleController::class, 'index'])->name('role');
+    Route::get('/role/{userRole}', [UserRoleController::class, 'showForm'])->name('show');
+    Route::put('/role/{id}', [UserRoleController::class, 'update'])->name('update');
 
+    Route::prefix('roles')->group(function(){
+        Route::get('/', [RoleController::class, 'index']);
+        Route::post('/', [RoleController::class, 'store']);
+        Route::get('/{id}', [RoleController::class, 'show']);
+        Route::put('/{id}', [RoleController::class, 'update']);
+    });
 });
 
+Route::get('/pending', [HomeController::class, 'pending'])->name('pending');

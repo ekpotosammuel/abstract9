@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<form action="#" method="POST">
+@csrf
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -20,16 +22,11 @@
                         </thead>
                         <tbody>
                 
-                            @foreach ($roles as $role)
-                               <tr>
-                                    <td>{{ $role->user->name }}</td>
-                                    <td>{{ $role->role->name }}</td>                
-                                        <br>
-                                    <td>
-                                        <a href="{{ route('update', $role) }}">EDIT</a>
-                                    </td>
-                        
-                           @endforeach
+                            {{-- <tr>
+                                <td>{{ $role->user->name }}</td>
+                                <td>{{ $role->role->name }}</td>                
+                                    <br>
+                            </tr> --}}
                 
                         </tbody>
                     </table> 

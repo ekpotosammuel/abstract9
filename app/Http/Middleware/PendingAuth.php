@@ -7,7 +7,7 @@ use App\Models\Role;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 
-class UserAuth
+class PendingAuth
 {
     /**
      * Handle an incoming request.
@@ -21,12 +21,9 @@ class UserAuth
         $user = auth('sanctum')->user();
         $user_role = UserRole::where('user_id', $user->id)->first();
         $role = Role::where('id', $user_role->role_id)->first();
-        if ($role->name != 'User') {
-            // return redirect()->back();
+        if ($role->name == 'Pending') {
             return redirect()->route('pending');
-
         }
         return $next($request);
-
     }
 }

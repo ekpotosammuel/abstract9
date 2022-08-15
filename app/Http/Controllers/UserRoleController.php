@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserRole;
 use App\Http\Requests\StoreUserRoleRequest;
 use App\Http\Requests\UpdateUserRoleRequest;
+use Illuminate\Http\Request;
 
 class UserRoleController extends Controller
 {
@@ -51,9 +52,9 @@ class UserRoleController extends Controller
      * @param  \App\Models\UserRole  $userRole
      * @return \Illuminate\Http\Response
      */
-    public function show(UserRole $userRole)
+    public function showForm(UserRole $userRole, Request $request)
     {
-        //
+        return view('admin.show');
     }
 
     /**
@@ -80,7 +81,7 @@ class UserRoleController extends Controller
             'user_id'=>'required',
             'role_id'=>'required',
         ]);
-        $role = UserRole::findorFail($id);
+        $role = UserRole::findorFail($userRole);
         $role->user_id=$request->input('user_id');
         $role->role_id=$request->input('role_id');
         $role->update();

@@ -21,10 +21,9 @@ class AdminAuth
         $user = auth('sanctum')->user();
         $user_role = UserRole::where('user_id', $user->id)->first();
         $role = Role::where('id', $user_role->role_id)->first();
-        if ($role->name == 'Pending') {
-            return redirect()->route('pending');
+        if ($role->name != 'Adminstrator') {
+            return redirect()->back();
         }
-
         return $next($request);
 
 
